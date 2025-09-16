@@ -1,3 +1,5 @@
+Tugas 2:
+
 Langkah-langkah yang saya lakukan untuk mengimplementasikan checklist di atas adalah:
 1. Membuat dan mengaktifkan Virtual Environment beserta Dependencies nya.
 2. Membuat proyek Django.
@@ -27,3 +29,15 @@ Migrasi database di Django bekerja dengan mengubah skema DB agar sesuai model ya
 Menurut saya, Django adalah framework yang sangat baik untuk digunakan sebagai permulaan pembelajaran pengembangan perangkat lunak karena Django menyediakan fitur built-in yang lengkap. Kemudian penggunaan bahasa python juga dapat membantu karena memiliki sintaks yang ramah pemula.
 
 Untuk tutorial 1 kemarin, saya belum ada feedback untuk asisten dosen
+
+Tugas 3:
+
+Data delivery dibutuhkan agar informasi dapat berpindah secara aman dan konsisten serta dapat diproses dari satu komponen ke komponen yang lain dalam sebuah platform. Data delivery membantu menjaga akurasi data, sinkronisasi antar sistem, efisiensi dalam pertukaran efisiensi, serta memastikan format data seragam sehingga aplikasi bisa saling mengerti satu sama lain.
+
+Menurut saya, JSON lebih baik daripada XML karena JSON memiliki format yang lebih mudah ditulis dan dibaca, mendukung penggunaan arrays, dan biasanya lebih mudah untuk diuraikan. Beberapa alasan yang sudah saya sebutkan adalah alasan-alasan paling utama mengapa JSON lebih populer dibandingkan XML untuk aplikasi modern.
+
+Method is_valid() pada form Django berfungsi untuk memvalidasi apakah data yang dikirimkan melalui form sesuai berdasarkan definisi field dan constraint yang diberikan.
+
+CSRF (Cross-Site Request Forgery) token digunakan untuk melindungi aplikasi dari serangan di mana penyerang mencoba memaksa pengguna yang sedang login untuk mengirim request berbahaya tanpa sepengetahuan pengguna tersebut. Apabila kita tidak menambahkan csrf_token, form akan menjadi rentan terhadap serangan CSRF karena penyerang dapat membuat halaman palsu yang mencoba mengirimkan request POST ke aplikasi dengan kredensial korban, mengingat cookie session korban masih aktif.
+
+Untuk tutorial 2 kemarin, saya belum ada feedback untuk asisten dosen
