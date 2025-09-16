@@ -40,6 +40,16 @@ Method is_valid() pada form Django berfungsi untuk memvalidasi apakah data yang 
 
 CSRF (Cross-Site Request Forgery) token digunakan untuk melindungi aplikasi dari serangan di mana penyerang mencoba memaksa pengguna yang sedang login untuk mengirim request berbahaya tanpa sepengetahuan pengguna tersebut. Apabila kita tidak menambahkan csrf_token, form akan menjadi rentan terhadap serangan CSRF karena penyerang dapat membuat halaman palsu yang mencoba mengirimkan request POST ke aplikasi dengan kredensial korban, mengingat cookie session korban masih aktif.
 
+Langkah-langkah yang saya lakukan untuk mengimplementasikan checklist di atas adalah:
+1. Membuat berkas HTML bernama base.html yang berfungsi sebagai template dasar halaman web lainnya di dalam proyek.
+2. Membuat form input data menggunakan Django modelform dan field yang sesuai dengan aplikasi saya
+3. Membuat fungsi create_products dan show_products di views.py
+4. Membuat main.html dapat menambahkan produk serta memuat semua informasi produk yang sudah ditambahkan
+5. membuat dua berkas HTML baru sebagai halaman input dan juga detail produk
+6. buat fungsi show_xml, show_json, dan yang dengan menggunakan id di views.py
+7. import semua fungsi baru (create_products, show_products, show_...) ke urls.py dan masukkan ke urlpatterns
+8. Gunakan Postman untuk mengecek pengiriman data
+
 Untuk tutorial 2 kemarin, saya belum ada feedback untuk asisten dosen
 
 Show XML
