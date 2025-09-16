@@ -41,3 +41,15 @@ Method is_valid() pada form Django berfungsi untuk memvalidasi apakah data yang 
 CSRF (Cross-Site Request Forgery) token digunakan untuk melindungi aplikasi dari serangan di mana penyerang mencoba memaksa pengguna yang sedang login untuk mengirim request berbahaya tanpa sepengetahuan pengguna tersebut. Apabila kita tidak menambahkan csrf_token, form akan menjadi rentan terhadap serangan CSRF karena penyerang dapat membuat halaman palsu yang mencoba mengirimkan request POST ke aplikasi dengan kredensial korban, mengingat cookie session korban masih aktif.
 
 Untuk tutorial 2 kemarin, saya belum ada feedback untuk asisten dosen
+
+Show XML
+<img width="1920" height="1200" alt="Screenshot 2025-09-16 214757" src="https://github.com/user-attachments/assets/fa9c0dce-0965-4af7-9c6d-0c1885d8c00e" />
+
+Show JSON
+<img width="1920" height="1200" alt="Screenshot 2025-09-16 214840" src="https://github.com/user-attachments/assets/a81f422c-c3ba-40ff-ac82-f479f1f134e7" />
+
+Show XML by id
+<img width="1920" height="1200" alt="Screenshot 2025-09-16 214814" src="https://github.com/user-attachments/assets/6fff1011-4a06-49be-bc20-e29c1d250712" />
+
+Show JSON by id
+<img width="1920" height="1200" alt="Screenshot 2025-09-16 214855" src="https://github.com/user-attachments/assets/755da7fe-b013-4143-a3c8-255047dce761" />
