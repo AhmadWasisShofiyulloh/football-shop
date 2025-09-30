@@ -109,10 +109,54 @@ Tidak, cookies secara default tidak 100% aman, beberapa risiko yang akan dihadap
 Django menangani risiko-risiko ini dengan menyediakan beberapa hal, di antaranya adalah CSRF middleware dan csrf_token yang mencegah request POST palsu, penggunaan HTTPS, dan menyimpan SECRET_KEY secara aman.
 
 Langkah-langkah yang saya lakukan untuk mengimplementasikan checklist di atas adalah:
-1. Membuat fungsi register, login, dan logout di views.py
+1. Membuat fungsi register, login, dan logout di views.py.
 2. Membuat page html untuk login dan register.
 3. Import fungsi register, login, dan logout ke urls.py dan menambahkan pathnya ke urlspatterns.
 4. Merestriksi akses halaman main pada pengguna yang belum login.
 5. Menggunakan data dari cookies untuk menampilkan waktu terakhir login.
 6. Menghubungkan model Product dengan User agar daftar produk dapat di filter berdasarkan user yang membuatnya.
+</details>
+
+<details>
+<summary>Tugas Individu 5</summary>
+
+Urutan prioritas selector:
+1. Inline styles, seperti  style="color: pink;"
+2. Id selectors, seperti #navbar
+3. Classes, attribute selectors and pseudo-classes, seperti .test, [type="text"], :hover
+4. Elements and pseudo-elements, seperti h1, ::before, ::after
+5. Universal selector and :where(), seperti *, where()
+
+Responsive design adalah konsep agar tampilan web dapat menyesuaikan diri dengan berbagai ukuran layar (desktop, tablet, smartphone). Konsep ini penting karena pengguna saat ini mengakses web dari banyak device dengan resolusi berbeda, sehingga tanpa responsive design pengalaman pengguna bisa buruk.
+
+Contoh aplikasi yang sudah menerapkan responsive design: Instagram dan Tokopedia
+
+Contoh aplikasi yang belum menerapkan responsive design:
+
+Margin - Area di luar border. Margin transparan.
+
+Border - Garis tepi yang mengelilingi padding dan konten. Di antara Margin dan Padding.
+
+Padding - Area di sekitar konten. Di antara konten dan Border. Padding transparan.
+
+Implementasi
+
+    div {
+        margin: 20px;
+        border: 15px solid green;
+        padding: 50px;
+    }
+
+Flexbox memberikan layout satu dimensi untuk mengatur item dalam sebuah kolom atau baris. Cocok digunakan untuk navbar.
+
+Grid layout memberikan layout dua dimensi untuk mengatur konten dalam sebuah tabel dan semacamnya. Cocok digunakan untuk dashboard.
+
+Langkah-langkah yang saya lakukan untuk mengimplementasikan checklist di atas adalah:
+1. Menambahkan Tailwind ke aplikasi dengan memanfaatkan script cdn di base.html.
+2. Membuat fungsi edit_products dan delete_products pada views.py.
+3. Import fungsi edit_products dan delete_products ke urls.py dan menambahkan pathnya ke urlspatterns.
+4. Memasukkan fungsi edit_products dan delete_products ke main.html.
+5. Menambahkan template navbar pada aplikasi.
+6. Mengkonfigurasi static files pada aplikasi.
+7. Melakukan styling pada aplikasi dengan Tailwind dan external css.
 </details>
