@@ -2,13 +2,15 @@ import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from main.forms import ProductForm
 from main.models import Product
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -77,8 +79,23 @@ def show_xml(request):
 
 def show_json(request):
     products_list = Product.objects.all()
-    json_data = serializers.serialize("json", products_list)
-    return HttpResponse(json_data, content_type="application/json")
+    data = [
+        {
+            'id': str(products.id),
+            'name': products.name,
+            'price': products.price,
+            'description': products.description,
+            'category': products.category,
+            'thumbnail': products.thumbnail,
+            'products_views': products.products_views,
+            'created_at': products.created_at.isoformat() if products.created_at else None,
+            'is_featured': products.is_featured,
+            'user_id': products.user_id,
+        }
+        for products in products_list
+    ]
+
+    return JsonResponse(data, safe=False)
 
 def show_xml_by_id(request, products_id):
    try:
@@ -89,12 +106,24 @@ def show_xml_by_id(request, products_id):
         return HttpResponse(status=404)
    
 def show_json_by_id(request, products_id):
-   try:
-        products_item = Product.objects.get(pk=products_id)
-        json_data = serializers.serialize("json", [products_item])
-        return HttpResponse(json_data, content_type="application/json")
-   except Product.DoesNotExist:
-        return HttpResponse(status=404)
+    try:
+        products = Product.objects.select_related('user').get(pk=products_id)
+        data = {
+            'id': str(products.id),
+            'name': products.name,
+            'price': products.price,
+            'description': products.description,
+            'category': products.category,
+            'thumbnail': products.thumbnail,
+            'products_views': products.products_views,
+            'created_at': products.created_at.isoformat() if products.created_at else None,
+            'is_featured': products.is_featured,
+            'user_id': products.user_id,
+            'user_username': products.user.username if products.user_id else None,
+        }
+        return JsonResponse(data)
+    except Product.DoesNotExist:
+        return JsonResponse({'detail': 'Not found'}, status=404)
    
 def register(request):
     form = UserCreationForm()
@@ -129,3 +158,27 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+@csrf_exempt
+@require_POST
+def add_products_entry_ajax(request):
+    name = request.POST.get("title")
+    price = request.POST.get("price")
+    description = request.POST.get("content")
+    category = request.POST.get("category")
+    thumbnail = request.POST.get("thumbnail")
+    is_featured = request.POST.get("is_featured") == 'on'  # checkbox handling
+    user = request.user
+
+    new_products = Product(
+        name=name, 
+        price=price,
+        description=description,
+        category=category,
+        thumbnail=thumbnail,
+        is_featured=is_featured,
+        user=user
+    )
+    new_products.save()
+
+    return HttpResponse(b"CREATED", status=201)
