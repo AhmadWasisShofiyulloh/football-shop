@@ -13,7 +13,34 @@
 
 <body>
     {% block content %} {% endblock content %}
-    {% include 'toast.html' %}
-    {% include 'modal.html' %}
+    {% block scripts %}
+            {% include 'toast.html' %}
+            {% include 'modal.html' %}
+            <script>
+            const logoutButtons = document.querySelectorAll('.logout-btn');
+
+            // Event listener logout button
+            logoutButtons.forEach(button => {
+                button.addEventListener('click', async function(e) {
+                    e.preventDefault(); 
+
+                    const response = await fetch("{% url 'main:logout_ajax' %}", {
+                        method: "POST",
+                    });
+                    
+                    const result = await response.json();
+
+                    if (result.status === 'success') {
+                        showToast("Success", result.message, "success");
+                        setTimeout(() => {
+                            window.location.href = "{% url 'main:login' %}";
+                        }, 1500);
+                    } else {
+                        showToast("Error", "Logout failed.", "error");
+                    }
+                });
+            });
+        </script>
+        {% endblock scripts %}
 </body>
 </html>

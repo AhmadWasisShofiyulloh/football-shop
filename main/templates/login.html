@@ -14,31 +14,9 @@
       </div>
 
       <!-- Form Errors Display -->
-      {% if form.non_field_errors %}
-        <div class="mb-6">
-          {% for error in form.non_field_errors %}
-            <div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700">
-              {{ error }}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
+      <div id="form-errors" class="mb-6 space-y-2 hidden"></div>
 
-      {% if form.errors %}
-        <div class="mb-6">
-          {% for field, errors in form.errors.items %}
-            {% if field != '__all__' %}
-              {% for error in errors %}
-                <div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700 mb-2">
-                  <strong>{{ field|title }}:</strong> {{ error }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
-
-      <form method="POST" action="" class="space-y-6">
+      <form id="login-form" method="POST" action="" class="space-y-6">
         {% csrf_token %}
         
         <div>
@@ -103,3 +81,30 @@
   </div>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+document.getElementById("login-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+
+    const response = await fetch("{% url 'main:login_ajax' %}", {
+        method: "POST",
+        body: formData, 
+    });
+
+    const result = await response.json();
+
+    if (result.status === 'success') {
+        showToast("Success", result.message, "success");
+        setTimeout(() => {
+            window.location.href = "{% url 'main:show_main' %}";
+        }, 1000);
+    } else {
+        showToast("Error", result.message, "error");
+    }
+});
+</script>
+{% endblock scripts %}

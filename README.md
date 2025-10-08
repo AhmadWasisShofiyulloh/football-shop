@@ -160,3 +160,26 @@ Langkah-langkah yang saya lakukan untuk mengimplementasikan checklist di atas ad
 6. Mengkonfigurasi static files pada aplikasi.
 7. Melakukan styling pada aplikasi dengan Tailwind dan external css.
 </details>
+
+<details>
+<summary>Tugas Individu 6</summary>
+
+Kalau synchronous request, request dikirim ke server dan browser menunggu respon sebelum melanjutkan proses lain. Halaman akan reload atau terhenti sementara sampai server mengembalikan hasil. Sedangkan untuk asynchronous request, request dikirim ke server tanpa menghentikan aktivitas halaman. Browser tetap bisa digunakan, dan ketika respon datang, hanya bagian tertentu halaman yang diperbarui tanpa reload penuh.
+
+Alur kerja AJAX di Django:
+1. User melakukan aksi di browser, misalnya klik tombol "Add Product".
+2. JavaScript membuat request AJAX menggunakan fetch() ke endpoint Django.
+3. Django view menerima request (biasanya dengan @csrf_exempt).
+4. View memproses data dan mengembalikan JSONResponse.
+5. JavaScript menerima JSON hasil dari server.
+6. JS kemudian memperbarui tampilan halaman tanpa reload seluruh halaman.
+
+Keuntungan menggunakan AJAX dibandingkan render biasa:
+1. Lebih efisien dan interaksi real-time karena tidak perlu reload.
+2. Beban server lebih ringan karena Django tidak perlu mengirimkan keseluruhan HTML.
+3. Lebih fleksible karena bisa digunakan untuk berbagai fitur.
+
+Cara memastikan keamanan saat login dan register menggunakan AJAX di Django adalah dengan menggunakan csrf token agar tidak rentan terhadap serangan csrf attack, serta melakukan validasi input di server agar tidak rentan terhadap serangan dari hasil input.
+
+AJAX mempengaruhi pengalaman pengguna dengan memberikan respon yang cepat, interaksi yang real-time, serta navigasi yang lebih mulus.
+</details>

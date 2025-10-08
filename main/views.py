@@ -182,3 +182,50 @@ def add_products_entry_ajax(request):
     new_products.save()
 
     return HttpResponse(b"CREATED", status=201)
+
+@csrf_exempt
+@require_POST
+def edit_products_entry_ajax(request, id):
+    products = get_object_or_404(Product, pk=id)
+    form = ProductForm(request.POST, instance=products)
+    form.save()
+
+    return HttpResponse(b"UPDATED", status=201)
+
+@csrf_exempt
+@require_POST
+def delete_products_entry_ajax(request, id):
+    products = Product.objects.get(pk=id)
+    if products.user == request.user:
+        products.delete()
+        return HttpResponse(b"DELETED", status=201)
+    
+@csrf_exempt
+def login_ajax(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return JsonResponse({"status": "success", "message": "Login successful!"})
+        else:
+            return JsonResponse({"status": "error", "message": "Invalid username or password."}, status=401)
+    return JsonResponse({"status": "error", "message": "Invalid request method."}, status=400)
+
+@csrf_exempt
+def register_ajax(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"status": "success", "message": "Registration successful! Please login."}, status=201)
+        else:
+            return JsonResponse({"status": "error", "errors": form.errors}, status=400)
+    return JsonResponse({"status": "error", "message": "Invalid request method."}, status=400)
+
+@csrf_exempt
+def logout_ajax(request):
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({"status": "success", "message": "You have been logged out."})
+    return JsonResponse({"status": "error", "message": "Invalid request method."}, status=400)
